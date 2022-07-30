@@ -1,20 +1,25 @@
-===== Install
+# installation Mongo 4.4
+
+```
 apt-get update
 curl -fsSL https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
 echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
 apt update
 apt-get install -y mongodb-org
+```
 
-===== Data DIr
+
+# Data DIr
+```
 mkdir -pv /data/mongodb/configdb/
 mkdir -pv /data/mongodb/logs
 touch /data/mongodb/logs/configsvr.log
 ls -alRv /data/
 chown -R mongodb:mongodb /data/
+```
 
-
-===== Operation
-
+# Operation
+```
 vi /etc/mongod.conf
 systemctl restart mongod
 systemctl status mongod
@@ -23,8 +28,9 @@ journalctl -xe mongod.service
 systemctl status mongod
 chown mongodb:mongodb -R /data
 chown mongodb:mongodb /tmp/mongodb-27018.sock
-
-
+```
+## Configuration MongoDB Config
+```
 storage:
   dbPath: /data/mongodb/configdb
   journal:
@@ -46,7 +52,7 @@ sharding:
 
 replication:
   replSetName: config
-
+```
 
 mongo 10.148.0.16:27019
 rs.initiate()
