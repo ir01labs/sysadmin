@@ -54,21 +54,24 @@ replication:
   replSetName: config
 ```
 
+```
 mongo 10.148.0.16:27019
 rs.initiate()
 rs.add('10.148.0.14:27019')
 rs.status()
+```
 
+# Mongo SHARDING
 
-====SHARDING
-
+```
 mkdir -pv /data/mongodb/sharddb/ 
 mkdir -pv /data/mongodb/logs 
 touch /data/mongodb/logs/shard.log 
 ls -alRv /data/
 chown -R mongodb:mongodb /data/
+```
 
-
+```
 storage:
   dbPath: /data/mongodb/sharddb
   journal:
@@ -90,20 +93,25 @@ sharding:
 
 replication:
   replSetName: shard
+```
 
+```
 rs.initiate()
 rs.add('10.148.0.12:27018')
 rs.status()
+```
 
+# ROUTER
 
-===== ROUTER
+```
 mkdir -pv /data/mongodb/router/ 
 mkdir -pv /data/mongodb/logs 
 touch /data/mongodb/logs/router.log 
 ls -alRv /data/
 chown -R mongodb:mongodb /data/
+```
 
-
+```
 systemLog:
   destination: file
   logAppend: true
@@ -113,9 +121,13 @@ net:
   bindIp: 10.148.0.15
 sharding:
   configDB: config/10.148.0.16:27019,10.148.0.14:27019
+```
 
+```
 $ vi /lib/systemd/system/mongod.service
 ExecStart=/usr/bin/mongos --config /etc/mongod.conf
+```
 
-
+```
 sh.addShard("shard/10.148.0.11:27018,10.148.0.12:27018")
+```
