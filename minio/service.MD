@@ -1,3 +1,4 @@
+```
 [Unit]
 Description=MinIO
 Documentation=https://docs.min.io
@@ -31,3 +32,4 @@ SendSIGKILL=no
   
 [Install]
 WantedBy=multi-user.target
+```
